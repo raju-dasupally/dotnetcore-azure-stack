@@ -30,6 +30,21 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
+    
+      - name: Configure git
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          
+      - name: Commit generated code and initialize workflows
+        run: |
+          appName="${{ github.event.inputs.AZURE_APP_NAME }}"
+          echo "$appName" > appname 
+          git add .
+          git commit -m "Generate framework code and initialize workflows"
+          git push 
+          # We cant push to main since its protected in this stack
       
       # Run dotnet build and publish
       - name: dotnet build and publish

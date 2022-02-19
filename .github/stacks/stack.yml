@@ -30,13 +30,7 @@ configs:
         - dotnetcore
         - azure
         
-   environments:                                        
-    - name: development
-      parameters: 
-        protected-branches: false
-        allowed-branch-rules:
-          - main
-          - releases/*
+
 github-apps:
 - slug: azure-oidc
   parameters:

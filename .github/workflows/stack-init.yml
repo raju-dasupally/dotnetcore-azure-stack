@@ -54,7 +54,6 @@ jobs:
       - name: List files
         run: ls
   
-      - uses: actions/checkout@main
       - uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}

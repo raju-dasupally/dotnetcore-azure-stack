@@ -37,6 +37,10 @@ configs:
         allowed-branch-rules:
           - main
           - releases/*
-
+github-apps:
+- slug: azure-oidc
+  parameters:
+    environment: development
+    
 init:
- uses: "stack-init.yaml"
+ uses: "stack-init.yml"

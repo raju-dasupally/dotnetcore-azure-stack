@@ -1,0 +1,42 @@
+version: 0.1.0   
+
+name: dotnetcore-azure-stack
+description: A stack to deploy dotnetcore app to Azure
+
+branding:
+  icon: 'cloud'
+  color: 'red'
+
+inputs:
+
+  - name: AZURE_APP_NAME
+    description: Enter the Azure web app name to deploy
+    is-secret: false
+    required: true
+    
+  - name: AZURE_WEBAPP_PUBLISH_PROFILE
+    description: Enter the Azure web app Publish profile 
+    is-secret: true
+    required: true
+
+configs:
+   repo-metadata:
+      parameters:
+        description: 'dotnetcore app hosted in azure'
+        secrets: 
+          - name: AZURE_WEBAPP_PUBLISH_PROFILE
+            value: ${{inputs.AZURE_WEBAPP_PUBLISH_PROFILE}}
+        topics:
+        - dotnetcore
+        - azure
+        
+   environments:                                        
+    - name: development
+      parameters: 
+        protected-branches: false
+        allowed-branch-rules:
+          - main
+          - releases/*
+
+init:
+ uses: "stack-init.yaml"
